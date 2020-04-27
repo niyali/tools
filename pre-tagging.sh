@@ -1,6 +1,12 @@
 #!/bin/bash 
 
 #
+# Prerequisites: 
+# - Bitrise app_slug for FxLite
+# - build_number of 99% rollout Beta build 
+# - personal BITRISE_TOKEN
+#
+# <Description> 
 # To get GIT_CLONE_COMMIT_HASH and Branch 
 # usage: ./pre-tagging.sh build_number
 # 
@@ -17,5 +23,6 @@ branch=$(cat build.log | grep -w "Branch:"  | awk '{print $3}')
 echo "Commit_Hash: "$commit_hash
 echo "Branch: "$branch
 
+# clean up 
 rm build.log
 
