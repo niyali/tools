@@ -2,9 +2,10 @@
 
 # prerequisite:
 # - install mysql-shell, https://dev.mysql.com/downloads/shell/
-# - need to be at corp network 
-# 
-# Usage: addPTOaccount.sh Employee_Number Name Email Manager PTO 
+# - need to be at corp network
+# - granted Google Gsuite admin permission 
+# - private key authorized to ssh into PTO 
+
 
 Employee_Number=$1
 Name=$2
@@ -13,6 +14,20 @@ Manager=$4
 Status=1
 StartDate=`date +%Y-%m-%d`
 PTO=$5
+
+usage() {
+    echo ""
+    echo "onborading - create account at TPE PTO and add newhire to TPE mailing list"
+    echo "Usage: onborading Employee_Number Name Email Manager PTO"
+    echo ""
+    echo "example: onboarding 123456 'Linear Li' linear@mozilla.com linear_manager@mozilla.com 10"
+    exit 0;
+}
+
+
+if [ $# -ne 5 ]; then 
+    usage;
+fi
 
 source onborading_config.sh
 `ssh -i ~/.ssh/id_rsa_pc $username@$hostaddr -L 3306:127.0.0.1:3306 -N &`
